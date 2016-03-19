@@ -34,7 +34,7 @@ line.link {
 
 var w = window.innerWidth,
     h = 500,
-    channelRadius = 250,
+    channelRadius = 200,
     centerX = w / 2,
     centerY = h / 2,
     node,
@@ -173,7 +173,7 @@ function update() {
   force
       .nodes(nodes)
       .links(links)
-      .gravity(0)
+      .gravity(0.03)
       .linkDistance(function (link) {
           return 80 * (1 - (link.weight || 0));
       })
@@ -216,11 +216,6 @@ function update() {
       .on("mouseover", showName)
       .style("fill", color);
 
-  container.append("text")
-    .attr("x", "14px")
-    .attr("y", "5px")
-    .text(function (node) { return node.name; });
-
   container.append("image")
     .attr("height", "40px")
     .attr("width", "40px")
@@ -236,6 +231,13 @@ function update() {
 
         return slackUser.profile.image_192;
     });
+
+  container.append("text")
+    .attr("x", "-100px")
+    .attr("y", "40px")
+    .attr("text-anchor", "middle")
+    .attr("width", "200px")
+    .text(function (node) { return node.name; });
 
   container
       .call(force.drag);

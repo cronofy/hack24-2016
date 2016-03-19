@@ -28,7 +28,7 @@ class WeightsController < ApplicationController
 
   def list_channels
     raw = influx.query('select count(message) from messages group by channel')
-    raw.map { |data| data['tags']['channel'] }
+    raw.map { |data| data['tags']['channel'] }.reject { |chan| chan == "general" }
   end
 
   def get_username_weights
