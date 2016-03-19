@@ -2,10 +2,12 @@ include Hatchet
 
 namespace :heimdall do
 
+  desc "Cleans DB"
   task :clean_db => :environment do
     ImportSlack.new.nuke_db!
   end
 
+  desc "Loads data from Slack"
   task :load_slack => :environment do
     user = User.first
     slack = SlackClient.new(user)
