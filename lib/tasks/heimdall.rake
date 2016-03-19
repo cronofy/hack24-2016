@@ -7,12 +7,10 @@ namespace :heimdall do
   end
 
   task :load_slack => :environment do
-    user = User.first
-    slack = SlackClient.new(user)
+    slack = SlackClient.new(User.first)
     import = ImportSlack.new
 
-    slack_users = slack.users
-    user_map = Hash[slack_users.map { |u| [u.id, u.profile['email']] }]
+    user_map = Hash[slack.users.map { |u| [u.id, u.profile['email']] }]
 
     log.info { "heimdall:load_slack started" }
 
@@ -44,15 +42,15 @@ namespace :heimdall do
   end
 
   task :load_calendars => :environment do
+    cronofy = CronofyClient.new
+    import = ImportCalendar.new
 
     log.info { "heimdall:load_calendars started" }
-
-    cronofy = CronofyClient.new
 
     count = 0
 
     cronofy.events.each do |event|
-      #influx magic here
+      import.import_event(event)
     end
 
     log.info { "heimdall:load_slack completed #{count} events" }
