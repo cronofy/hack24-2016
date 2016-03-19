@@ -1,0 +1,3 @@
+class SlackClient
+
+end

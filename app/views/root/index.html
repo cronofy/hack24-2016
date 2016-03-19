@@ -1,0 +1,5 @@
+<% if logged_in? %>
+<h1>Welcome to Heimdall</h1>
+<% else %>
+<%= link_to "Log In", "/auth/slack" %>
+<% end %>
