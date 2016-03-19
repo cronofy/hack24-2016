@@ -10,11 +10,16 @@ class UserWeighting
   end
 
   def get_channel_weight(name)
-    channel_count(name) / total_count
+    channel_count(name) / total_count.to_f
   end
 
   def channel_count(name)
-    @data.find { |message| message['channel'] == name }['count']
+    match = @data.find { |message| message['channel'] == name }
+    if match
+      match['count']
+    else
+      0
+    end
   end
 
   def to_hash
