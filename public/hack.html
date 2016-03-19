@@ -31,8 +31,11 @@ line.link {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.js"></script>
     <script type="text/javascript">
 
-var w = 1280,
-    h = 800,
+var w = window.innerWidth,
+    h = 500,
+    channelRadius = 200,
+    centerX = w / 2,
+    centerY = h / 2,
     node,
     link,
     root,
@@ -72,17 +75,26 @@ var setupRootNode = function () {
         type: "anchor",
         name: "root",
         fixed: true,
-        x: w / 2,
-        y: (h / 2) - 80
+        x: centerX,
+        y: centerY - 80
     });
 };
 
 var setupChannelNodes = function () {
+    var nodeCount = root.channels.length;
+
+    var radiansPerNode = (2 * Math.PI) / nodeCount;
+    var radians = radiansPerNode / 1.5;
+
     channelNodes = _.map(root.channels, function (name) {
+        radians = radians + radiansPerNode;
+
         return addNode({
             type: "channel",
             name: name,
-            fixed: true
+            fixed: true,
+            x: centerX + (Math.sin(radians) * channelRadius),
+            y: centerY + (Math.cos(radians) * channelRadius)
         });
     });
 };
