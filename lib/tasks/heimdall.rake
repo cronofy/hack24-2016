@@ -53,6 +53,7 @@ namespace :heimdall do
 
     cronofy.events.each do |event|
       import.import_event(event)
+      count += 1
     end
 
     log.info { "heimdall:load_slack completed #{count} events" }
