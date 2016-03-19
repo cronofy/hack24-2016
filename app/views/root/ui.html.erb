@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link type="text/css" rel="stylesheet" href="style.css"/>
     <script type="text/javascript">
-    var slackUsers = <%= JSON.pretty_generate(slack_users.map(&:to_h).map { |h| [h[:name], h] }.to_h).html_safe %>;
+    var slackUsers = <%= JSON.pretty_generate(slack_users.map { |u| [u.profile['email'], u.to_h] }.to_h).html_safe %>;
     </script>
     <style type="text/css">
 
@@ -34,7 +34,7 @@ line.link {
 
 var w = window.innerWidth,
     h = 500,
-    channelRadius = 200,
+    channelRadius = 250,
     centerX = w / 2,
     centerY = h / 2,
     node,
@@ -57,7 +57,7 @@ var vis = d3.select("body").append("svg:svg")
     .attr("width", w)
     .attr("height", h);
 
-d3.json("flare2.json", function(json) {
+d3.json("/weights.json", function(json) {
   root = json;
   root.fixed = true;
   root.x = w / 2;
@@ -151,7 +151,7 @@ var chargeFn = function (node) {
     switch (node.type)
     {
         case "channel":
-          result = 0;
+          result = -200;
           break;
         case "person":
           result = -400;

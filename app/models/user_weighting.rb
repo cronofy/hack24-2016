@@ -24,12 +24,12 @@ class UserWeighting
 
   def to_hash
     channels_counts = @channels.map do |chan|
-      { chan => get_channel_weight(chan) }
+      [chan, get_channel_weight(chan)]
     end
 
     {
       name: @name,
-      channels: channels_counts
+      channels: channels_counts.to_h
     }
   end
 end
