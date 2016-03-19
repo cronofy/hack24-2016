@@ -25,4 +25,19 @@ namespace :heimdall do
 
   end
 
+  task :load_calendars => :environment do
+
+    log.info { "heimdall:load_calendars started" }
+
+    cronofy = CronofyClient.new
+
+    count = 0
+
+    cronofy.events.each do |event|
+      #influx magic here
+    end
+
+    log.info { "heimdall:load_slack completed #{count} events" }
+  end
+
 end
