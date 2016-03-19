@@ -190,7 +190,7 @@ function update() {
       .attr("class", "link")
       .attr("style", function (link) {
           return "stroke-width:" + Math.sqrt(20 * link.weight) + "px;" +
-            "opacity:" + link.weight;
+            "opacity:" + (0.4 + link.weight);
       })
       .attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
@@ -200,22 +200,26 @@ function update() {
   // Exit any old links.
   link.exit().remove();
 
-  // Update the nodes…
-  node = vis.selectAll("circle.node")
-      .data(nodes, function(d) { return d.name; })
+  node = vis.selectAll("g").data(nodes);
+
+  var container = node.enter()
+      .append("g")
+      .attr("transform", function(d){return "translate("+d.x+","+d.y+")"})
+
+  container.append("svg:circle")
+      .attr("class", "node")
+      .attr("cx", function(d) { return 0; })
+      .attr("cy", function(d) { return 0; })
+      .attr("r", function(d) { return 10; })
+      .on("mouseover", showName)
       .style("fill", color);
 
-  node.transition()
-      .attr("r", function(d) { return 20; });
+  container.append("text")
+    .attr("x", "14px")
+    .attr("y", "5px")
+    .text(function (node) { return node.name; });
 
-  // Enter any new nodes.
-  node.enter().append("svg:circle")
-      .attr("class", "node")
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; })
-      .attr("r", function(d) { return d.type == "channel" ? 5 : 10; })
-      .style("fill", color)
-      .on("mouseover", showName)
+  container
       .call(force.drag);
 
   // Exit any old nodes.
@@ -228,8 +232,7 @@ function tick() {
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
 
-  node.attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
+  node.attr("transform", function(d) { return "translate("+d.x+","+d.y+")"});
 }
 
 // Color leaf nodes orange, and packages white or blue.
