@@ -41,6 +41,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.2.2)
+    cause (0.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -59,6 +60,9 @@ GEM
     hashie (3.4.3)
     hatchet (0.2.11)
     i18n (0.7.0)
+    influxdb (0.2.3)
+      cause
+      json
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -166,6 +170,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   hatchet
+  influxdb
   jbuilder (~> 2.0)
   jquery-rails
   omniauth-slack

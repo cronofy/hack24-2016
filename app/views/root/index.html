@@ -1,5 +1,10 @@
 <% if logged_in? %>
 <h1>Welcome to Heimdall</h1>
+
+<%= button_to 'Logout', session_path, method: :delete, class: 'btn btn-link' %>
+<%= button_to 'Delete Account', '/', method: :delete, data: { confirm: "Are you sure?", disable_with: "Deleting..." }, class: 'btn btn-link' %>
+
+
 <% else %>
 <%= link_to "Log In", "/auth/slack" %>
 <% end %>
