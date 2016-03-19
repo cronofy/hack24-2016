@@ -1,0 +1,55 @@
+{
+    "channels": [
+        "#dev",
+        "#general",
+        "#marketing",
+        "#support"
+    ],
+    "people": [
+        {
+            "name": "garry",
+            "channels": {
+                "#dev": 0.5,
+                "#general": 0.3,
+                "#marketing": 0.1,
+                "#support": 0.1
+            }
+        },
+        {
+            "name": "stephen",
+            "channels": {
+                "#dev": 0.7,
+                "#general": 0.3,
+                "#marketing": 0.0,
+                "#support": 0.0
+            }
+        },
+        {
+            "name": "adam",
+            "channels": {
+                "#dev": 0.2,
+                "#general": 0.4,
+                "#marketing": 0.2,
+                "#support": 0.2
+            }
+        },
+        {
+            "name": "jenni",
+            "channels": {
+                "#dev": 0.0,
+                "#general": 0.5,
+                "#marketing": 0.5,
+                "#support": 0.0
+            }
+        },
+        {
+            "name": "jeremy",
+            "channels": {
+                "#dev": 0.0,
+                "#general": 0.5,
+                "#marketing": 0.5,
+                "#support": 0.0
+            }
+        }
+    ]
+}
