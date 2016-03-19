@@ -1,6 +1,13 @@
 <% if logged_in? %>
 <h1>Welcome to Heimdall</h1>
 
+<h2>Channels</h2>
+<ul>
+<% slack_channels.each do |channel| %>
+  <li><%= channel.name %></li>
+<% end %>
+</ul>
+
 <%= button_to 'Logout', session_path, method: :delete, class: 'btn btn-link' %>
 <%= button_to 'Delete Account', '/', method: :delete, data: { confirm: "Are you sure?", disable_with: "Deleting..." }, class: 'btn btn-link' %>
 
