@@ -2,10 +2,12 @@ include Hatchet
 
 namespace :heimdall do
 
+  desc "Cleans DB"
   task :clean_db => :environment do
     ImportSlack.new.nuke_db!
   end
 
+  desc "Loads data from Slack"
   task :load_slack => :environment do
     slack = SlackClient.new(User.first)
     import = ImportSlack.new
@@ -26,7 +28,7 @@ namespace :heimdall do
         count += 1
         data = {
           email: mapped_user,
-          text: message.text,
+          text: message.text.gsub(/[^0-9a-z: ]/i, ''),
           channel: channel.name,
           timestamp: message.ts.to_i
         }

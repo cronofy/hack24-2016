@@ -6,6 +6,10 @@ class RootController < ApplicationController
 
   end
 
+  def ui
+
+  end
+
   def destroy
     current_user.destroy if current_user
     redirect_to :root
