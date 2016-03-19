@@ -24,8 +24,12 @@ class SessionsController < ApplicationController
     redirect_to :root
   end
 
+  def logout
+    destroy
+  end
+
   def destroy
-    logout
+    end_session
     flash.now[:info] = "Logged out"
     redirect_to :root
   end

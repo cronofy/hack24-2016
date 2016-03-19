@@ -3,7 +3,7 @@ SLACK_CLIENT_SECRET = 'c6f84b3a599a95f8439938832bcc47d7'
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :slack, SLACK_CLIENT_ID, SLACK_CLIENT_SECRET, {
-    scope: "identify channels:read channels:history groups:read chat:write:bot commands"
+    scope: "identify channels:read channels:history users:read"
   }
 end
 

@@ -9,6 +9,11 @@ class SlackClient
     @user = user
   end
 
+  def users
+    result = do_get("users.list", {})
+    result['members'].map { |u| OpenStruct.new(u) }
+  end
+
   def channels
     result = do_get("channels.list", { exclude_archived: 1 })
     result['channels'].map{ |c| OpenStruct.new(id: c['id'], name: c['name']) }
@@ -36,8 +41,8 @@ class SlackClient
   end
 
   def do_get(method, params)
-    params[:token] = user.slack_access_token
     log.debug { "#do_get #{method} #{params}" }
+    params[:token] = user.slack_access_token
     response = connection.get(request_path(method, params))
     preprocess_response(response, method)
   end

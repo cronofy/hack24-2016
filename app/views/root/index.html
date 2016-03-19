@@ -1,6 +1,13 @@
 <% if logged_in? %>
 <h1>Welcome to Heimdall</h1>
 
+<h2>Users</h2>
+<ul>
+<% slack_users.each do |user| %>
+  <li><%= "#{user.name} [#{user.id}]" %></li>
+<% end %>
+</ul>
+
 <h2>Channels</h2>
 <ul>
 <% slack_channels.each do |channel| %>

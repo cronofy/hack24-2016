@@ -6,6 +6,8 @@ namespace :heimdall do
     user = User.first
     slack = SlackClient.new(user)
 
+    slack_users = slack.users
+
     log.info { "heimdall:load_slack started" }
 
     slack.channels.each do |channel|
