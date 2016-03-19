@@ -13,7 +13,6 @@ circle.node {
 }
 
 line.link {
-  display: none;
   fill: none;
   stroke: #9ecae1;
   stroke-width: 1.5px;
@@ -189,6 +188,10 @@ function update() {
   link.enter()
       .insert("svg:line", ".node")
       .attr("class", "link")
+      .attr("style", function (link) {
+          return "stroke-width:" + Math.sqrt(20 * link.weight) + "px;" +
+            "opacity:" + link.weight;
+      })
       .attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
