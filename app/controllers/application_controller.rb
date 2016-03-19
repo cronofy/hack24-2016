@@ -32,4 +32,8 @@ class ApplicationController < ActionController::Base
     Time.now.getutc
   end
 
+  def slack_client
+    @slack_client ||= SlackClient.new(current_user)
+  end
+
 end

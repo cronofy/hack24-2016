@@ -15,7 +15,4 @@ class RootController < ApplicationController
     @slack_channels ||= slack_client.channels
   end
 
-  def slack_client
-    @slack_client ||= SlackClient.new(current_user)
-  end
 end

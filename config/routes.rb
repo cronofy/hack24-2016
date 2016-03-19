@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get "/auth/failure", to: "sessions#failure"
 
   resource :session, only: [:create, :destroy]
-
+  resources :channels, only: [:show]
 end

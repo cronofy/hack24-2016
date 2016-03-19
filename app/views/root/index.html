@@ -4,7 +4,7 @@
 <h2>Channels</h2>
 <ul>
 <% slack_channels.each do |channel| %>
-  <li><%= channel.name %></li>
+  <li><%= link_to channel.name, channel_path(channel.id) %></li>
 <% end %>
 </ul>
 
