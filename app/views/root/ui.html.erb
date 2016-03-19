@@ -3,6 +3,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link type="text/css" rel="stylesheet" href="style.css"/>
+    <script type="text/javascript">
+    var slackUsers = <%= JSON.pretty_generate(slack_users.map(&:to_h).map { |h| [h[:name], h] }.to_h).html_safe %>;
+    </script>
     <style type="text/css">
 
 circle.node {
@@ -218,6 +221,22 @@ function update() {
     .attr("y", "5px")
     .text(function (node) { return node.name; });
 
+  container.append("image")
+    .attr("height", "40px")
+    .attr("width", "40px")
+    .attr("x", "-20")
+    .attr("y", "-20")
+    .attr("xlink:href", function (node) {
+        console.log(node.name);
+        var slackUser = slackUsers[node.name];
+
+        if (!slackUser) {
+            return;
+        }
+
+        return slackUser.profile.image_192;
+    });
+
   container
       .call(force.drag);
 
@@ -266,3 +285,4 @@ function showName(node) {
     </script>
   </body>
 </html>
+
