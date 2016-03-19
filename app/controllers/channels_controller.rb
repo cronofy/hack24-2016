@@ -1,6 +1,6 @@
 class ChannelsController < ApplicationController
 
-  helper_method :channel
+  helper_method :channel, :channel_messages
 
   def show
 
@@ -12,5 +12,9 @@ class ChannelsController < ApplicationController
 
   def channel
     slack_client.channel_info(channel_id)
+  end
+
+  def channel_messages
+    slack_client.channel_history(channel_id).messages
   end
 end

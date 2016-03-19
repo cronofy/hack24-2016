@@ -1,5 +1,26 @@
 <h1>Channel - <%= channel.name %></h1>
 <dl>
   <dt><%= channel.id %></dt>
-  <dt><%= channel.purpose['value'] %></dt>
+  <dt><%= channel.purpose['value'] if channel.purpose %></dt>
 </dl>
+<h2>Messages</h2>
+<table>
+  <thead>
+    <tr>
+      <td>ts</td>
+      <td>type</td>
+      <td>user</td>
+      <td>text</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% channel_messages.each do |message| %>
+    <tr>
+      <td><%= message['ts'] %></td>
+      <td><%= message['type'] %></td>
+      <td><%= message['user'] %></td>
+      <td><%= message['text'] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

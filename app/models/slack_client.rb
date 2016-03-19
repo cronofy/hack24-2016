@@ -10,19 +10,36 @@ class SlackClient
   end
 
   def channels
-    data = do_get("channels.list", { exclude_archived: 1 }, 'channels')
-    data.map{ |c| OpenStruct.new(id: c['id'], name: c['name']) }
+    result = do_get("channels.list", { exclude_archived: 1 })
+    result['channels'].map{ |c| OpenStruct.new(id: c['id'], name: c['name']) }
   end
 
   def channel_info(channel_id)
-    data = do_get("channels.info", { channel: channel_id }, 'channel')
-    OpenStruct.new(data)
+    result = do_get("channels.info", { channel: channel_id })
+    OpenStruct.new(result['channel'])
   end
 
-  def do_get(method, params, data)
+  def channel_history(channel_id, oldest=1)
+    result = do_get("channels.history", { channel: channel_id, oldest: oldest })
+    OpenStruct.new(result)
+  end
+
+  def channel_history_each(channel_id, &block)
+    oldest = 1
+    begin
+      page = channel_history(channel_id, oldest)
+      page.messages.reverse.each do |message|
+        yield OpenStruct.new(message)
+        oldest = message['ts']
+      end
+    end while page.has_more
+  end
+
+  def do_get(method, params)
     params[:token] = user.slack_access_token
+    log.debug { "#do_get #{method} #{params}" }
     response = connection.get(request_path(method, params))
-    preprocess_response(response, method)[data]
+    preprocess_response(response, method)
   end
 
   def preprocess_response(response, method)
@@ -34,7 +51,6 @@ class SlackClient
     end
 
     payload
-
   end
 
   def request_path(method, params={})
