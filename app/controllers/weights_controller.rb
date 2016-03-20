@@ -47,8 +47,8 @@ class WeightsController < ApplicationController
     if start && end_date
       influx.query("drop series from datecounts")
       log.info { "select count(message) into datecounts from messages where time > '#{start}' and time < '#{end_date}' group by username" }
-      influx.query("select count(message) into datecounts from messages where time > '#{start}' group by username")
-      influx.query("select count(message) into datecounts from messages where time > '#{start}' group by channel, username");
+      influx.query("select count(message) into datecounts from messages where timestamp > '#{start}' and timestamp < '#{end_date}' group by username")
+      influx.query("select count(message) into datecounts from messages where timestamp > '#{start}' and timestamp < '#{end_date}' group by channel, username");
       influx.query('select * from datecounts').first['values']
     else
       influx.query("drop series from counts")
