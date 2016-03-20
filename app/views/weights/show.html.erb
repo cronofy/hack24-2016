@@ -1,0 +1,20 @@
+<h2>
+  <%= @id %>
+</h2>
+<table>
+  <thead>
+    <tr>
+      <td>Channel</td>
+      <td>Weighing</td>
+    </tr>
+  </thead>
+  <tbody>
+    <%= debug @data %>
+    <% @data.each do |weight| %>
+    <tr>
+      <td><%= weight[0] %></td>
+      <td><%= weight[1] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

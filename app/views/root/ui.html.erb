@@ -15,17 +15,41 @@ line.link {
   stroke-width: 1.5px;
 }
 
+.svg-container {
+  text-align: center;
+}
+
     </style>
-  </head>
-  <body>
-    <h2>
-      Flare code size<br>
-      force-directed graph
-    </h2>
-    <h3 id="current">Hover something</h3>
+      <h2>
+        Organization View
+      </h2>
+      <hr/>
+      <div class="svg-container">
+      </div>
+      <form method="get" class="form-horizontal well">
+        <fieldset>
+          <legend>Filter by date range</legend>
+          <div class="control-group">
+            <label class="control-label" for="input01">Start Date</label>
+            <div class="controls">
+              <input type="date" class="input-xlarge" name="startDate">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">End Date</label>
+            <div class="controls">
+              <input type="date" class="input-xlarge" name="endDate">
+            </div>
+          </div>
+          <br />
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </fieldset>
+      </form>
     <script type="text/javascript">
 
-var w = window.innerWidth,
+var w = 800,
     h = 600,
     channelRadius = 200,
     centerX = w / 2,
@@ -46,11 +70,15 @@ var force = d3.layout.force()
     .linkDistance(function(d) { return d.target._children ? 80 : 30; })
     .size([w, h - 160]);
 
-var vis = d3.select("body").append("svg:svg")
+var vis = d3.select(".svg-container").append("svg:svg")
     .attr("width", w)
     .attr("height", h);
 
+<% if @startDate && @endDate %>
+d3.json("/weights.json?startDate=<%= @startDate %>&endDate=<%= @endDate %>", function(json) {
+  <% else %>
 d3.json("/weights.json", function(json) {
+  <% end %>
   root = json;
   root.fixed = true;
   root.x = w / 2;
@@ -229,6 +257,10 @@ function update() {
   container.append("text")
     .attr("x", (avatarDimensions - 5) + "px")
     .attr("y", "8px")
+    .attr("y", "40px")
+    .attr("text-anchor", "middle")
+    .attr("width", "200px")
+    .attr("fill", "#5A544D")
     .text(function (node) { return node.name; });
 
   container
@@ -276,5 +308,4 @@ function showName(node) {
     var current = document.getElementById("current");
     current.innerHTML = node.name;
 }
-    </script>
-
+</script>

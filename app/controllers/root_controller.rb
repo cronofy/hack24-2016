@@ -7,7 +7,8 @@ class RootController < ApplicationController
   end
 
   def ui
-
+    @startDate = params[:startDate]
+    @endDate = params[:endDate]
   end
 
   def destroy

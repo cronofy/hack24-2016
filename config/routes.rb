@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 
   resource :session, only: [:create, :destroy]
   resources :channels, only: [:show]
-  resources :weights, only: [:index]
+  resources :weights, only: [:index, :show]
 end
